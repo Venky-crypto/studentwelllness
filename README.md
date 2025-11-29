@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Wellness Platform</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        color: white;
+        overflow-x: hidden;
+        transition: 1s ease;
+    }
+
+    /* Smooth Page Fade */
+    .page {
+        display: none;
+        padding: 40px;
+        animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.98); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .active {
+        display: block;
+    }
+
+    /* Beautiful Heading */
+    h1 {
+        text-align: center;
+        font-size: 45px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 15px black;
+        letter-spacing: 2px;
+    }
+
+    /* Navbar */
+    nav {
+        background: rgba(0,0,0,0.5);
+        padding: 14px;
+        display: flex;
+        justify-content: center;
+        gap: 18px;
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+
+    nav button {
+        background: rgba(255,255,255,0.2);
+        padding: 10px 18px;
+        border-radius: 12px;
+        border: none;
+        font-size: 15px;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    nav button:hover {
+        background: #ffea00;
+        color: black;
+        transform: translateY(-3px);
+    }
+
+    /* Cards */
+    .card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15));
+        padding: 22px;
+        border-radius: 18px;
+        margin: 20px auto;
+        width: 80%;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        transition: 0.4s;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 35px rgba(0,0,0,0.4);
+    }
+
+    /* Buttons */
+    button {
+        background: #ffea00;
+        color: black;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 8px;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: orange;
+        transform: scale(1.1);
+    }
+
+    input {
+        width: 85%;
+        padding: 14px;
+        margin: 10px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 17px;
+    }
+
+    /* Exercise Blocks */
+    .exercise-box {
+        background: rgba(0,0,0,0.35);
+        padding: 18px;
+        border-radius: 12px;
+        margin: 15px 0;
+        font-size: 18px;
+    }
+
+    /* Circular Progress */
+    .circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 10px solid yellow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+        margin: auto;
+        margin-bottom: 20px;
+        font-weight: bold;
+        text-shadow: 1px 1px 10px black;
+    }
+
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar" style="display:none;">
+    <button onclick="showPage('dashboardPage')">Dashboard</button>
+    <button onclick="showPage('programPage')">Programs</button>
+    <button onclick="showPage('nutritionPage')">Nutrition</button>
+    <button onclick="showPage('yogaPage')">Yoga</button>
+    <button onclick="showPage('scorePage')">Score</button>
+    <button onclick="showPage('achievementsPage')">Achievements</button>
+    <button onclick="showPage('profilePage')">Profile</button>
+</nav>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="page active">
+    <h1>Student Wellness Login</h1>
+    <div class="card">
+        <p><b>Enter Username:</b></p>
+        <input type="text" id="username" placeholder="Enter your name">
+
+        <p><b>Enter Password:</b></p>
+        <input type="password" id="password" placeholder="Enter password">
+
+        <br><button onclick="login()">Login</button>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboardPage" class="page">
+    <h1>Welcome to Your Wellness Dashboard</h1>
+
+    <div class="circle" id="circleScore">0</div>
+
+    <div class="card">
+        <h2>🔥 Daily Recommendations</h2>
+        <p>✔ Drink 3 liters of water</p>
+        <p>✔ 20 minutes yoga</p>
+        <p>✔ 10-minute meditation</p>
+        <p>✔ 10,000 steps walking</p>
+    </div>
+
+    <div class="card">
+        <h2>🎯 Wellness Progress</h2>
+        <p>You are improving every day! Keep completing exercises.</p>
+    </div>
+</div>
+
+<!-- PROGRAM PAGE -->
+<div id="programPage" class="page">
+    <h1>Wellness Programs</h1>
+
+    <div class="card">
+        <h2>Mental Health Support</h2>
+        <p>• Meditation (5 minutes)<br>
+           • Deep Breathing<br>
+           • Talking to a counselor</p>
+
+        <button onclick="completeTask('Meditation')">Mark as Completed</button>
+    </div>
+
+    <div class="card">
+        <h2>Fitness Exercises</h2>
+
+        <div class="exercise-box">
+            ✔ 10 Push-ups 
+            <button onclick="completeTask('10 Push-ups')">Complete</button>
+        </div>
+
+        <div class="exercise-box">
+            ✔ 20 Squats 
+            <button onclick="completeTask('20 Squats')">Complete</button>
+        </div>
+
+        <div class="exercise-box">
+            ✔ 1 km Walking
+            <button onclick="completeTask('1 km Walk')">Complete</button>
+        </div>
+
+        <div class="exercise-box">
+            ✔ 15 Burpees
+            <button onclick="completeTask('15 Burpees')">Complete</button>
+        </div>
+    </div>
+</div>
+
+<!-- NUTRITION PAGE -->
+<div id="nutritionPage" class="page">
+    <h1>Nutrition Guidance</h1>
+
+    <div class="card">
+        <h2>🍎 Healthy Foods</h2>
+        <p>✔ Daily fruits</p>
+        <p>✔ Green leafy vegetables</p>
+        <p>✔ Milk & Eggs</p>
+        <p>✔ Almonds, walnuts & seeds</p>
+    </div>
+
+    <div class="card">
+        <h2>🥤 Water Intake</h2>
+        <p>Drink at least 3 liters of water daily.</p>
+    </div>
+</div>
+
+<!-- YOGA PAGE -->
+<div id="yogaPage" class="page">
+    <h1>Yoga & Meditation</h1>
+
+    <div class="card">
+        <h2>🧘 Yoga Exercises</h2>
+        <p>✔ Surya Namaskar × 10</p>
+        <p>✔ Cobra Pose</p>
+        <p>✔ Child Pose</p>
+        <button onclick="completeTask('Surya Namaskar')">Complete</button>
+    </div>
+
+    <div class="card">
+        <h2>🕊 Meditation</h2>
+        <p>✔ 10 minutes deep breathing</p>
+        <button onclick="completeTask('Meditation 10 min')">Complete</button>
+    </div>
+</div>
+
+<!-- SCORE PAGE -->
+<div id="scorePage" class="page">
+    <h1>Your Wellness Score</h1>
+
+    <div class="circle" id="bigCircleScore">0</div>
+
+    <div class="card">
+        <p>The more you complete tasks, the more your health improves!</p>
+    </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div id="achievementsPage" class="page">
+    <h1>Achievements</h1>
+
+    <div class="card" id="achievementList">
+        <p>No achievements yet… start completing tasks!</p>
+    </div>
+</div>
+
+<!-- PROFILE PAGE -->
+<div id="profilePage" class="page">
+    <h1>Your Profile</h1>
+
+    <div class="card">
+        <h2>Name: <span id="profileName"></span></h2>
+        <h2>Total Score: <span id="profileScore"></span></h2>
+    </div>
+</div>
+
+<script>
+    let score = 0;
+    let achievements = [];
+
+    function showPage(pageID) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageID).classList.add('active');
+
+        document.getElementById("profileScore").innerText = score;
+        document.getElementById("circleScore").innerText = score;
+        document.getElementById("bigCircleScore").innerText = score;
+
+        if (pageID === "achievementsPage") updateAchievements();
+    }
+
+    function login() {
+        let user = document.getElementById("username").value;
+        let pass = document.getElementById("password").value;
+
+        if (user === "" || pass === "") {
+            alert("Please enter login details!");
+            return;
+        }
+
+        document.getElementById("profileName").innerText = user;
+
+        document.getElementById("navbar").style.display = "flex";
+        showPage("dashboardPage");
+    }
+
+    function completeTask(taskName) {
+        score += 10;
+        achievements.push("🏆 Completed: " + taskName);
+        alert("Task Completed! +10 Points");
+    }
+
+    function updateAchievements() {
+        let box = document.getElementById("achievementList");
+        box.innerHTML = "";
+        achievements.forEach(a => box.innerHTML += `<p>${a}</p>`);
+
+        if (achievements.length === 0)
+            box.innerHTML = "<p>No achievements yet.</p>";
+    }
+</script>
+
+</body>
+</html>
